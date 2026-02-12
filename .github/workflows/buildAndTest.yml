@@ -1,0 +1,30 @@
+name: Build and Test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  buildAndTest:
+    name: Run tests
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check out the Git repository
+        uses: actions/checkout@v4
+      - name: Set up Java toolchain
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "21"
+          cache: "gradle"
+      - name: Run unit tests
+        run: ./gradlew test
+      - name: Build and Analyze with Gradle
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          ./gradlew build sonar \
+            --info \
+            -Dsonar.organization=advprog-2026-a5-project \
+            -Dsonar.projectKey=advprog-2026-A5-project_individual-preparation \
+            -Dsonar.host.url=https://sonarcloud.io \
