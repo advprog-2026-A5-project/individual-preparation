@@ -11,8 +11,18 @@ public class VectorUtility {
     }
 
     public double[] subtract(double[] v1, double[] v2) {
-        // TODO: Implement me properly!
-        return new double[] { 0.0, 0.0, 0.0 };
+        // Validasi ukuran v1 dan v2
+        if (v1.length != v2.length) {
+            throw new IllegalArgumentException("Panjang vektor harus sama");
+        }
+        double[] result = new double[v1.length];
+
+        // Pemrosesan substraction
+        for (int i = 0; i < v1.length; i++) {
+            result[i] = v1[i] - v2[i];
+        }
+
+        return result;
     }
 
     public double[] multiply(double[] v1, int x) {
