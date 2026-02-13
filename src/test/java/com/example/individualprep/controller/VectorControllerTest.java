@@ -42,4 +42,24 @@ class VectorControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string(objectMapper.writeValueAsString(expectedResponse))); // You can add assertions here
     }
+
+    @Test
+    void whenSubtractCalled_returnCorrectVectorResult() throws Exception {
+        // Prepare data
+        double[] v1 = {5.5, 4.0, 10.0};
+        double[] v2 = {2.5, 1.0, 3.0};
+        double[] resultVector = {3.0, 3.0, 7.0};
+
+        VectorRequest vectorRequest = new VectorRequest(v1, v2, 0);
+        VectorResponse expectedResponse = new VectorResponse(resultVector);
+
+        when(vectorUtility.subtract(any(double[].class), any(double[].class))).thenReturn(resultVector);
+
+        mockMvc.perform(post("/api/vector/subtract")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(vectorRequest)))
+                .andExpect(status().isOk())
+                .andExpect(content().string(objectMapper.writeValueAsString(expectedResponse)));
+    }
+
 }
