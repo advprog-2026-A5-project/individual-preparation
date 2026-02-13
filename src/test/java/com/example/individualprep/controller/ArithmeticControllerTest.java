@@ -43,4 +43,16 @@ class ArithmeticControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string(objectMapper.writeValueAsString(expectedResponse)));
     }
+
+    @Test
+    void whenMultiplyCalled_returnCorrectResult() throws Exception {
+        ArithmeticRequest arithmeticRequest = new ArithmeticRequest(3.0, 4.0, 0);
+        ArithmeticResponse expectedResponse = new ArithmeticResponse(12.0);
+        when(arithmeticUtility.multiply(3.0, 4.0)).thenReturn(12.0);
+        mockMvc.perform(post("/api/arithmetic/multiply")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(arithmeticRequest)))
+                .andExpect(status().isOk())
+                .andExpect(content().string(objectMapper.writeValueAsString(expectedResponse)));
+    }
 }
