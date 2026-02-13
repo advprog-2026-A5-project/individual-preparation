@@ -1,7 +1,10 @@
 package com.example.individualprep.controller;
 
+import com.example.individualprep.dto.ArithmeticRequest;
+import com.example.individualprep.dto.ArithmeticResponse;
 import com.example.individualprep.dto.VectorRequest;
 import com.example.individualprep.dto.VectorResponse;
+import com.example.individualprep.service.ArithmeticUtility;
 import com.example.individualprep.service.VectorUtility;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -18,28 +21,26 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(VectorController.class)
-class VectorControllerTest {
+@WebMvcTest(ArithmeticController.class)
+class ArithmeticControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockitoBean
-    private VectorUtility vectorUtility;
+    private ArithmeticUtility arithmeticUtility;
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
-    void whenSortMethodIsCalled_thenReturnSortedArray() throws Exception {
-        double[] v1 = {1.5, 2.0, 50.0};
-        double[] v2 = {2, 0.5, 0.1};
-        VectorRequest vectorRequest = new VectorRequest(v1, v2, 0);
-        VectorResponse expectedResponse = new VectorResponse(9.0);
-        when(vectorUtility.dotProduct(any(double[].class), any(double[].class))).thenReturn(9.0);
-        mockMvc.perform(post("/api/vector/dotProduct")
+    void whenSubstractCalled_returnCorrectResult() throws Exception {
+        ArithmeticRequest arithmeticRequest = new ArithmeticRequest(3.0, 4.0, 0);
+        ArithmeticResponse expectedResponse = new ArithmeticResponse(-1.0);
+        when(arithmeticUtility.subtract(3.0, 4.0)).thenReturn(-1.0);
+        mockMvc.perform(post("/api/arithmetic/subtract")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(vectorRequest)))
+                        .content(objectMapper.writeValueAsString(arithmeticRequest)))
                 .andExpect(status().isOk())
-                .andExpect(content().string(objectMapper.writeValueAsString(expectedResponse))); // You can add assertions here
+                .andExpect(content().string(objectMapper.writeValueAsString(expectedResponse)));
     }
 }
