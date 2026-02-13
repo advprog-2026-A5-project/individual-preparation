@@ -30,7 +30,7 @@ class VectorControllerTest {
     private ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
-    void whenSortMethodIsCalled_thenReturnSortedArray() throws Exception {
+    void whenDotProductCalled_returnCorrectScalarResult() throws Exception {
         double[] v1 = {1.5, 2.0, 50.0};
         double[] v2 = {2, 0.5, 0.1};
         VectorRequest vectorRequest = new VectorRequest(v1, v2, 0);
