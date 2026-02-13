@@ -23,4 +23,14 @@ class ArithmeticUtilityTest {
         assertEquals(67.0, result);
     }
 
+    @Test
+    void testArithmeticMultiplication() {
+        double operand1 = 100.0;
+        double operand2 = 25.0;
+
+        double result = arithmeticUtility.multiply(operand1, operand2);
+
+        assertEquals(2500, result);
+    }
+
 }
