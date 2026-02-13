@@ -23,4 +23,23 @@ class ArithmeticUtilityTest {
         assertEquals(67.0, result);
     }
 
+    @Test
+    void testArithmeticDivision() {
+        double operand1 = 20.0;
+        double operand2 = 4.0;
+
+        double result = arithmeticUtility.divide(operand1, operand2);
+
+        assertEquals(5.0, result);
+    }
+
+    @Test
+    void testArithmeticDivisionByZero() {
+        double operand1 = 10.0;
+        double operand2 = 0.0;
+
+        org.junit.jupiter.api.Assertions.assertThrows(ArithmeticException.class, () -> {
+            arithmeticUtility.divide(operand1, operand2);
+        }, "Pembagian dengan nol");
+    }
 }
