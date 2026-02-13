@@ -17,9 +17,9 @@ jobs:
           distribution: "temurin"
           java-version: "21"
           cache: "gradle"
-      - name: Run unit tests
-        run: ./gradlew test
-      - name: Build and Analyze with Gradle
+      - name: Run unit tests and checkstyle linter
+        run: ./gradlew test check
+      - name: Build and Analyze with Gradle Sonar
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
