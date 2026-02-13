@@ -67,4 +67,25 @@ class VectorUtilityTest {
         assertEquals(0.0, result);
     }
 
+    @Test
+    void testVectorSubtract() {
+        double[] v1 = {5.5, 4.0, 10.0};
+        double[] v2 = {2.5, 1.0, 3.0};
+
+        double[] result = vectorUtility.subtract(v1, v2);
+
+        assertArrayEquals(new double[] {3.0, 3.0, 7.0}, result);
+    }
+
+    @Test
+    void testVectorSubtractLengthNotMatch() {
+        double[] v1 = {1.0, 2.0};
+        double[] v2 = {1.0, 2.0, 3.0};
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            vectorUtility.subtract(v1, v2);
+        });
+
+        assertEquals("Panjang vektor harus sama", exception.getMessage());
+    }
 }
